@@ -18,12 +18,13 @@
  */
 
 // Ensure class and interface are defined.
+/** ERROR causes issues with update.php, add to local settings instead
 if (!class_exists('AuthPlugin') || !interface_exists('iAuthPlugin'))
 {
     require_once './includes/AuthPlugin.php';
     require_once './extensions/AuthFlarum/iAuthPlugin.php';
 }
-
+ */
 
 /**
  * Authenticate against a Flarum database.
@@ -162,6 +163,7 @@ class AuthFlarum extends AuthPlugin implements iAuthPlugin
         $sqlStatement->bind_result($resultID, $resultUsername, $resultPassword);
 
         while($sqlStatement->fetch())
+        {
             // Test password
             if(password_verify($password, $resultPassword) && $this->isMemberOfWikiGroup($username))
             {
@@ -548,7 +550,7 @@ class AuthFlarum extends AuthPlugin implements iAuthPlugin
     // Don't authenticate off any other tables
     public function strict()
     {
-        return true;
+        return false;
     }
 
 
